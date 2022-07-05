@@ -24,7 +24,7 @@ export default {
   css: [],
 
   // Plugins to run before rendering page: https://go.nuxtjs.dev/config-plugins
-  plugins: [],
+  plugins: ['~/plugins/remixIcons.js', '~/plugins/mdb.js'],
 
   // Auto import components: https://go.nuxtjs.dev/config-components
   components: true,
@@ -45,5 +45,9 @@ export default {
   },
 
   // Build Configuration: https://go.nuxtjs.dev/config-build
-  build: {},
+  build: {
+    parallel: process.env.NODE_ENV == 'development',
+    hardSource: process.env.NODE_ENV == 'development',
+    cache: process.env.NODE_ENV == 'development',
+  },
 }
