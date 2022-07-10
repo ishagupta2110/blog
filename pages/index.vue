@@ -1,10 +1,13 @@
 <template>
   <div>
-  <Header/>
+    <Header />
     <!-- <BlogBorder>
       <Lazy-BlogCard message="This is a Blog Card" />
     </BlogBorder> -->
-    <BlogHomeBlog/>
+    <HomeAbout />
+    <BlogHomeBlog />
+    <HomeContact />
+  
   </div>
 </template>
 

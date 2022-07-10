@@ -1,8 +1,8 @@
 <template>
-  <div class="card" style="height: 80vh">
+  <div class="card">
     <img
       src="~assets/images/post2.jpg"
-      class="card-img-top"
+      class="card-img-top img-fluid"
       style="height: 45vh"
       alt="Fissure in Sandstone"
     />
@@ -14,7 +14,7 @@
         Some quick example text to build on the card title and make up the bulk
         of the card's content.
       </p>
-      <SmallComponentsRedButton :message="'My Button'" />
+       <NuxtLink to="/blog/singleblog"><SmallComponentsRedButton :message="'Read More'"  /></NuxtLink>
     </div>
   </div>
 </template>

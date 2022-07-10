@@ -32,38 +32,50 @@
             <li class="nav-item">
               <NuxtLink
                 to="/"
-                class="nav-link px-2 d-inline-block"
-                exact-active-class="custom"
-                >HOME</NuxtLink
+                class="nav-link px-2 d-inline-block text-uppercase"
+                exact-active-class="fw-bolder text-white"
+                >Home</NuxtLink
               >
             </li>
             <li class="nav-item">
               <NuxtLink
                 to="/about"
-                class="nav-link px-2 d-inline-block"
-                exact-active-class="custom"
-                >ABOUT</NuxtLink
+                class="nav-link px-2 d-inline-block text-uppercase"
+                exact-active-class="fw-bolder text-white"
+                >About</NuxtLink
               >
             </li>
             <li class="nav-item">
               <NuxtLink
                 to="/blog"
                 class="nav-link px-2 d-inline-block text-uppercase"
-                exact-active-class="custom"
-                >blog</NuxtLink
+                exact-active-class="fw-bolder text-white"
+                >Blog</NuxtLink
               >
             </li>
-            <!-- <li class="nav-item">
-              <a class="nav-link   px-2" href="#">PRIVACY POLICY</a>
-            </li> -->
             <li class="nav-item">
-              <a class="nav-link px-2">CONTACT US</a>
+              <NuxtLink
+                to="/privacypolicy"
+                class="nav-link px-2 d-inline-block text-uppercase"
+                exact-active-class="fw-bolder text-white"
+                >PRIVACY POLICY</NuxtLink
+              >
+            </li>
+            <li class="nav-item">
+              <NuxtLink
+                to="/contactus"
+                class="nav-link px-2 d-inline-block text-uppercase"
+                exact-active-class="fw-bolder text-white"
+                >Contact Us</NuxtLink
+              >
             </li>
           </ul>
-          <!--  -->
+
           <ul class="navbar-nav d-flex flex-row me-1">
             <li class="nav-item me-3 me-lg-0">
-              <a class="nav-link fw-bold fst-italic fs-5">LOGIN</a>
+              <NuxtLink to="/login" class="nav-link fw-bold fst-italic fs-5"
+                >LOGIN</NuxtLink
+              >
             </li>
           </ul>
         </div>
@@ -82,10 +94,15 @@ export default {
 
 <style scoped>
 .custom {
+  color: white !important;
+  /* background-image: linear-gradient(to right, #e52d27, #f4d03f) !important; */
+  /* background-clip: text !important; */
+}
+/* .custom {
   color: transparent !important;
   background-image: linear-gradient(to right, #e52d27, #f4d03f) !important;
   background-clip: text !important;
-}
+} */
 .gradient-custom {
   background: linear-gradient(to right, #e52d27, #f4d03f);
 }
