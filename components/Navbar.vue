@@ -14,6 +14,7 @@
 
         <!-- Toggle button -->
         <button
+          id="navBarButton"
           class="navbar-toggler"
           type="button"
           data-mdb-toggle="collapse"
@@ -89,6 +90,15 @@
 <script>
 export default {
   name: 'Navbar',
+
+  watch: {
+    $route: function () {
+      let navbar = document.getElementById('navbarSupportedContent')
+      if (navbar.classList.contains('show')) {
+        document.getElementById('navBarButton').click()
+      }
+    },
+  },
 }
 </script>
 
