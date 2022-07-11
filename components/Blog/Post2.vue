@@ -1,20 +1,21 @@
 <template>
   <div class="card">
     <img
-      src="~assets/images/post2.jpg"
+      :src="post.featured_image"
       class="card-img-top img-fluid"
       style="height: 45vh"
       alt="Fissure in Sandstone"
     />
     <div class="card-body">
       <h5 class="card-title fw-bold text-dark">
-        Best Face Mask For Sensitive Skin.
+        {{ post.title }}
       </h5>
       <p class="card-text">
-        Some quick example text to build on the card title and make up the bulk
-        of the card's content.
+        {{ post.excerpt }}
       </p>
-       <NuxtLink to="/blog/singleblog"><SmallComponentsRedButton :message="'Read More'"  /></NuxtLink>
+      <NuxtLink :to="`/blog/${post.slug}`"
+        ><SmallComponentsRedButton :message="'Read More'"
+      /></NuxtLink>
     </div>
   </div>
 </template>
@@ -22,6 +23,13 @@
 <script>
 export default {
   name: 'Post2',
+
+  props: {
+    post: {
+      type: Object,
+      required: true,
+    },
+  },
 }
 </script>
 

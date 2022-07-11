@@ -1,13 +1,19 @@
 <template>
   <div class="bg-light">
     <div class="container py-5 pt-5 pb-2 mt-5 text-center">
-      <div class="card">
+      <div class="card" v-if="loading">
+        <div class="card_body">
+          <h4>loading....</h4>
+        </div>
+      </div>
+
+      <div class="card" v-else>
         <div
           class="bg-image hover-overlay ripple"
           data-mdb-ripple-color="light"
         >
           <img
-            src="~assets/images/post2.jpg"
+            :src="singlePost.featured_image"
             style="height: 45vh"
             class="img-fluid mt-3"
           />
@@ -15,67 +21,14 @@
 
         <div class="card-body">
           <h2 class="card-title fw-bold text-danger">
-            Best Face Mask For Sensitive Skin
+            {{ singlePost.title }}
           </h2>
-          <span class="fs-5">- Sonia Garg</span>
-          <p class="card-text text-black">
-            Some quick example text to build on the card title and make up the
-            bulk of the card's content. Lorem ipsum dolor sit amet, consectetur
-            adipisicing elit. Quis quidem recusandae sequi dicta? Itaque, ad.
-            Sequi dignissimos, aliquid vero soluta dolor accusamus voluptatem
-            nobis animi dolorum cupiditate libero exercitationem reprehenderit?
-            Lorem ipsum dolor sit amet consectetur adipisicing elit. Tenetur
-            expedita vero est explicabo nemo excepturi quas, consectetur itaque
-            maxime sit pariatur facere distinctio commodi molestiae similique
-            repellendus ipsa sequi cum. Lorem ipsum dolor sit amet, consectetur
-            adipisicing elit. Architecto fugit nulla iusto quaerat tenetur
-            perspiciatis ad dolores. Debitis odio, assumenda maxime porro, iusto
-            temporibus illo velit quidem minus quasi nostrum. bulk of the card's
-            content. Lorem ipsum dolor sit amet, consectetur adipisicing elit.
-            Quis quidem recusandae sequi dicta? Itaque, ad. Sequi dignissimos,
-            aliquid vero soluta dolor accusamus voluptatem nobis animi dolorum
-            cupiditate libero exercitationem reprehenderit? Lorem ipsum dolor
-            sit amet consectetur adipisicing elit. Tenetur expedita vero est
-            explicabo nemo excepturi quas, consectetur itaque maxime sit
-            pariatur facere distinctio commodi molestiae similique repellendus
-            ipsa sequi cum. Lorem ipsum dolor sit amet, consectetur adipisicing
-            elit. Architecto fugit nulla iusto quaerat tenetur perspiciatis ad
-            dolores. Debitis odio, assumenda maxime porro, iusto temporibus illo
-            velit quidem minus quasi nostrum. bulk of the card's content. Lorem
-            ipsum dolor sit amet, consectetur adipisicing elit. Quis quidem
-            recusandae sequi dicta? Itaque, ad. Sequi dignissimos, aliquid vero
-            soluta dolor accusamus voluptatem nobis animi dolorum cupiditate
-            libero exercitationem reprehenderit? Lorem ipsum dolor sit amet
-            consectetur adipisicing elit. Tenetur expedita vero est explicabo
-            nemo excepturi quas, consectetur itaque maxime sit pariatur facere
-            distinctio commodi molestiae similique repellendus ipsa sequi cum.
-            Lorem ipsum dolor sit amet, consectetur adipisicing elit. Architecto
-            fugit nulla iusto quaerat tenetur perspiciatis ad dolores. Debitis
-            odio, assumenda maxime porro, iusto temporibus illo velit quidem
-            minus quasi nostrum. bulk of the card's content. Lorem ipsum dolor
-            sit amet, consectetur adipisicing elit. Quis quidem recusandae sequi
-            dicta? Itaque, ad. Sequi dignissimos, aliquid vero soluta dolor
-            accusamus voluptatem nobis animi dolorum cupiditate libero
-            exercitationem reprehenderit? Lorem ipsum dolor sit amet consectetur
-            adipisicing elit. Tenetur expedita vero est explicabo nemo excepturi
-            quas, consectetur itaque maxime sit pariatur facere distinctio
-            commodi molestiae similique repellendus ipsa sequi cum. Lorem ipsum
-            dolor sit amet, consectetur adipisicing elit. Architecto fugit nulla
-            iusto quaerat tenetur perspiciatis ad dolores. Debitis odio,
-            assumenda maxime porro, iusto temporibus illo velit quidem minus
-            quasi nostrum. bulk of the card's content. Lorem ipsum dolor sit
-            amet, consectetur adipisicing elit. Quis quidem recusandae sequi
-            dicta? Itaque, ad. Sequi dignissimos, aliquid vero soluta dolor
-            accusamus voluptatem nobis animi dolorum cupiditate libero
-            exercitationem reprehenderit? Lorem ipsum dolor sit amet consectetur
-            adipisicing elit. Tenetur expedita vero est explicabo nemo excepturi
-            quas, consectetur itaque maxime sit pariatur facere distinctio
-            commodi molestiae similique repellendus ipsa sequi cum. Lorem ipsum
-            dolor sit amet, consectetur adipisicing elit. Architecto fugit nulla
-            iusto quaerat tenetur perspiciatis ad dolores. Debitis odio,
-            assumenda maxime porro, iusto temporibus illo velit quidem minus
-            quasi nostrum.
-          </p>
+          <span class="fs-5">- {{ singlePost.author }}</span>
+          <div
+            class="card-text text-black"
+            id="content"
+            v-html="singlePost.content"
+          ></div>
         </div>
       </div>
     </div>
@@ -85,6 +38,51 @@
 <script>
 export default {
   name: 'singleblog',
+
+  data() {
+    return {
+      singlePost: {},
+      loading: true,
+    }
+  },
+
+  props: {
+    slug: {
+      type: String,
+      required: true,
+    },
+  },
+
+  methods: {
+    async getSinglePost(slug) {
+      return new Promise((resolve, reject) => {
+        this.singlePost = this.$api.blog.single(slug)
+
+        resolve()
+      })
+    },
+  },
+
+  mounted() {
+    let id
+    // split the string at _ create its array
+    id = this.$route.params.slug.split('_')
+    // get the last element of the array
+    id = id[id.length - 1]
+
+    this.getSinglePost(id)
+      .then(() => {
+        this.loading = false
+      })
+      .then(() => {
+        let content = document.getElementById('content')
+        // get list of all img elements
+        content.querySelectorAll('img').forEach((img) => {
+          // add class to each img element
+          img.classList.add('img-fluid', 'hover-shadow', 'my-3')
+        })
+      })
+  },
 }
 </script>
 

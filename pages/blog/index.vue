@@ -5,10 +5,10 @@
     <div class="row my-5 g-4">
       <div
         class="col-lg-3 col-md-4 col-sm-6 col-12"
-        v-for="item in 12"
-        :key="item"
+        v-for="post in posts"
+        :key="post.id"
       >
-        <BlogPost2 />
+        <BlogPost2 :post="post" />
       </div>
     </div>
   </div>
@@ -17,6 +17,26 @@
 <script>
 export default {
   name: 'blog',
+
+  data() {
+    return {
+      posts: [],
+    }
+  },
+
+  methods: {
+    async getBlogPosts() {
+      return new Promise((resolve, reject) => {
+        this.posts = this.$api.blog.list()
+
+        resolve({ status: 'success' })
+      })
+    },
+  },
+
+  mounted() {
+    this.getBlogPosts()
+  },
 }
 </script>
 
